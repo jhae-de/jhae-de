@@ -1,0 +1,33 @@
+name: Lint simple project
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        type: string
+        required: false
+        default: '18'
+      lint-script:
+        type: string
+        required: false
+        default: 'lint'
+
+jobs:
+  lint-simple-project:
+    name: Lint simple project
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Install dependencies
+        run: npm clean-install
+
+      - name: Run linter
+        run: npm run-script ${{ inputs.lint-script }}
