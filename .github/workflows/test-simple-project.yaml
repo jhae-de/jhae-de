@@ -1,0 +1,33 @@
+name: Test simple project
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        type: string
+        required: false
+        default: '18'
+      test-script:
+        type: string
+        required: false
+        default: 'test:coverage'
+
+jobs:
+  test-simple-project:
+    name: Test simple project
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Install dependencies
+        run: npm clean-install
+
+      - name: Run tests
+        run: npm run-script ${{ inputs.test-script }}
