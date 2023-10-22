@@ -1,0 +1,52 @@
+name: Publish Node package
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        type: string
+        required: false
+        default: '18'
+      registry-url:
+        type: string
+        required: false
+        default: 'https://registry.npmjs.org'
+      needs-build:
+        type: boolean
+        required: false
+        default: true
+      build-script:
+        type: string
+        required: false
+        default: 'build'
+    secrets:
+      node-auth-token:
+        required: true
+
+jobs:
+  publish-node-package:
+    name: Publish Node package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node-version }}
+          registry-url: ${{ inputs.registry-url }}
+
+      - name: Install dependencies
+        if: ${{ inputs.needs-build }}
+        run: npm clean-install
+
+      - name: Build package
+        if: ${{ inputs.needs-build }}
+        run: npm run-script ${{ inputs.build-script }}
+
+      - name: Publish package
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.node-auth-token }}
