@@ -11,6 +11,14 @@ on:
         type: string
         required: false
         default: 'test:coverage'
+      upload-code-coverage:
+        type: boolean
+        required: false
+        default: false
+      code-coverage-files:
+        type: string
+        required: false
+        default: './coverage/coverage-final.json'
 
 jobs:
   test-simple-project:
@@ -31,3 +39,9 @@ jobs:
 
       - name: Run tests
         run: npm run-script ${{ inputs.test-script }}
+
+      - name: Upload code coverage
+        if: ${{ inputs.upload-code-coverage }}
+        uses: codecov/codecov-action@v3
+        with:
+          files: ${{ inputs.code-coverage-files }}
