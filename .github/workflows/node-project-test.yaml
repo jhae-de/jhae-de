@@ -1,4 +1,4 @@
-name: Test simple project
+name: Test Node project
 
 on:
   workflow_call:
@@ -11,18 +11,18 @@ on:
         type: string
         required: false
         default: 'test:coverage'
-      upload-code-coverage:
+      upload-coverage:
         type: boolean
         required: false
         default: false
-      code-coverage-files:
+      coverage-files:
         type: string
         required: false
         default: './coverage/coverage-final.json'
 
 jobs:
-  test-simple-project:
-    name: Test simple project
+  test-node-project:
+    name: Test Node project
     runs-on: ubuntu-latest
 
     steps:
@@ -40,8 +40,8 @@ jobs:
       - name: Run tests
         run: npm run-script ${{ inputs.test-script }}
 
-      - name: Upload code coverage
-        if: ${{ inputs.upload-code-coverage }}
+      - name: Upload coverage
+        if: ${{ inputs.upload-coverage }}
         uses: codecov/codecov-action@v3
         with:
-          files: ${{ inputs.code-coverage-files }}
+          files: ${{ inputs.coverage-files }}

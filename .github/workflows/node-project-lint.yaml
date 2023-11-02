@@ -1,4 +1,4 @@
-name: Lint simple project
+name: Lint Node project
 
 on:
   workflow_call:
@@ -13,8 +13,8 @@ on:
         default: 'lint'
 
 jobs:
-  lint-simple-project:
-    name: Lint simple project
+  lint-node-project:
+    name: Lint Node project
     runs-on: ubuntu-latest
 
     steps:
