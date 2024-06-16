@@ -19,6 +19,9 @@ on:
         type: string
         required: false
         default: 'build'
+      package-version:
+        type: string
+        required: false
     secrets:
       node-auth-token:
         required: true
@@ -45,6 +48,10 @@ jobs:
       - name: Build package
         if: ${{ inputs.needs-build }}
         run: npm run-script ${{ inputs.build-script }}
+
+      - name: Set package version
+        if: ${{ inputs.package-version }}
+        run: npm version --no-git-tag-version ${{ inputs.package-version }}
 
       - name: Publish package
         run: npm publish --access public
