@@ -19,6 +19,9 @@ on:
         type: string
         required: false
         default: './coverage/coverage-final.json'
+    secrets:
+      codecov-token:
+        required: false
 
 jobs:
   test-node-project:
@@ -43,5 +46,7 @@ jobs:
       - name: Upload coverage
         if: ${{ inputs.upload-coverage }}
         uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.codecov-token }}
         with:
           files: ${{ inputs.coverage-files }}
