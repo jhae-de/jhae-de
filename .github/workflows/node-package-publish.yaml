@@ -22,9 +22,6 @@ on:
       package-version:
         type: string
         required: false
-    secrets:
-      node-auth-token:
-        required: true
 
 jobs:
   publish-node-package:
@@ -55,5 +52,3 @@ jobs:
 
       - name: Publish package
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.node-auth-token }}
