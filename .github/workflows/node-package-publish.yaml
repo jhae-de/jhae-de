@@ -6,11 +6,11 @@ on:
       node-version:
         type: string
         required: false
-        default: '20'
+        default: 24
       registry-url:
         type: string
         required: false
-        default: 'https://registry.npmjs.org'
+        default: https://registry.npmjs.org
       needs-build:
         type: boolean
         required: false
@@ -18,7 +18,7 @@ on:
       build-script:
         type: string
         required: false
-        default: 'build'
+        default: build
       package-version:
         type: string
         required: false

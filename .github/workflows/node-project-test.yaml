@@ -6,11 +6,11 @@ on:
       node-version:
         type: string
         required: false
-        default: '20'
+        default: 24
       test-script:
         type: string
         required: false
-        default: 'test:coverage'
+        default: test:coverage
       upload-coverage:
         type: boolean
         required: false
@@ -18,7 +18,7 @@ on:
       coverage-files:
         type: string
         required: false
-        default: './coverage/coverage-final.json'
+        default: ./coverage/coverage-final.json
     secrets:
       codecov-token:
         required: false
